@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
+import Link from "next/link";
 
 const List = () => {
 
@@ -26,7 +27,9 @@ const List = () => {
   const ArticleList = list.map(t => (
     <div key={t.article_no}>
       <h2>{t.article_no}</h2>
-      <h2>{t.title}</h2>
+      <Link as={`/article/${t.article_no}`} href={`/read?articleNo=${t.article_no}`}>
+        <a>{t.title}</a>
+      </Link>
       <h3>{t.writer}</h3>
       <p>{t.content}</p>
       <p>{t.reg_date}</p>
