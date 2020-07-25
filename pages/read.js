@@ -1,19 +1,23 @@
 import React from 'react';
 import Axios from 'axios';
 import Header from "./components/header";
+import Link from "next/link";
+import Layout from "./components/layout";
 
 const Read = (props) => {
 
   const { article } = props;
 
   return (
-    <div>
-      <Header/>
+    <Layout>
       <h1>Read</h1>
       <h2>{article.title}</h2>
       <h3>{article.writer}</h3>
       <p>{article.content}</p>
-    </div>
+      <Link as={`/mod/${article.article_no}`} href={`/modify?articleNo=${article.article_no}`}>
+        <button>수정</button>
+      </Link>
+    </Layout>
   )
 };
 

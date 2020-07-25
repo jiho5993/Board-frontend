@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import Link from "next/link";
 import Header from "./components/header";
+import List_css from "../css/list_css";
 
 const List = () => {
 
@@ -26,23 +27,35 @@ const List = () => {
   }, []);
 
   const ArticleList = list.map(t => (
-    <div key={t.article_no}>
-      <h2>{t.article_no}</h2>
-      <Link as={`/article/${t.article_no}`} href={`/read?articleNo=${t.article_no}`}>
-        <a>{t.title}</a>
-      </Link>
-      <h3>{t.writer}</h3>
-      <p>{t.content}</p>
-      <p>{t.reg_date}</p>
-      <p>--------------------------------------------------</p>
-    </div>
+    <tr key={t.article_no}>
+      <td>{t.article_no}</td>
+      <td>
+        <Link as={`/article/${t.article_no}`} href={`/read?articleNo=${t.article_no}`}>
+          <a>{t.title}</a>
+        </Link>
+      </td>
+      <td>{t.writer}</td>
+      <td>0</td>
+    </tr>
   ))
 
   return (
-    <div>
-      <Header/>
+    <div className={"board-wrapper"}>
+      <List_css/>
       <h1>list</h1>
-      {ArticleList}
+      <table className={'table-board'}>
+        <thead>
+        <tr>
+          <th style={{ width: "10%" }}>#</th>
+          <th style={{ width: "50%" }}>title</th>
+          <th style={{ width: "30%" }}>writer</th>
+          <th style={{ width: "10%" }}>view_cnt</th>
+        </tr>
+        </thead>
+        <tbody>
+        {ArticleList}
+        </tbody>
+      </table>
     </div>
   )
 };

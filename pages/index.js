@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import Header from "./components/header";
 import List from "./list";
+import Layout from "./components/layout";
 
 const Index = () => {
 
   return (
-    <div>
-      <Header/>
-    </div>
+    <Layout>
+      <List/>
+    </Layout>
   )
 
 };

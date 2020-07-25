@@ -10,11 +10,23 @@ app.prepare()
 
   var server = express();
 
+  /**
+   * server render: read article
+   */
   server.get('/article/:no', (req, res) => {
     const actualPage = '/read';
     const queryParams = { articleNo: req.params.no };
     app.render(req, res, actualPage, queryParams);
   });
+
+  /**
+   * server render: modify article
+   */
+  server.get('/mod/:no', (req, res) => {
+    const actualPage = '/modify';
+    const queryParams = { articleNo: req.params.no };
+    app.render(req, res, actualPage, queryParams);
+  })
 
   server.get('*', (req, res) => {
     return handle(req, res);

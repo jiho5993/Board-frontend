@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Router from 'next/router';
 import Axios from 'axios';
 import Header from "./components/header";
+import Write_css from "../css/write_css";
+import Layout from "./components/layout";
 
 const Write = () => {
 
@@ -29,15 +31,26 @@ const Write = () => {
   }
 
   return (
-    <div>
-      <Header/>
-      <form className={"write-article"} method={'POST'}>
-        제목 <input id={"title"} onChange={getTitle} placeholder={"제목"} required/><br/>
-        작성자 <input id={"writer"} onChange={getWriter} placeholder={"작성자"} required/><br/>
-        내용 <textarea id={"content"} onChange={getContent} placeholder={"내용"} required/><br/>
-        <input type={"button"} onClick={handleSubmit} value={"글쓰기"}/>
-      </form>
-    </div>
+    <Layout>
+      <Write_css/>
+      <div className={"write-article"}>
+        <form method={'POST'}>
+          <div className={"title"}>
+            <label>제목</label>
+            <input id={"title"} type={"text"} onChange={getTitle} placeholder={"제목"} required/><br/>
+          </div>
+          <div className={"writer"}>
+            <label>작성자</label>
+            <input id={"writer"} type={"text"} onChange={getWriter} placeholder={"작성자"} required/><br/>
+          </div>
+          <div className={"content"}>
+            <label>내용</label>
+            <textarea style={{ height: "300px" }} id={"content"} onChange={getContent} placeholder={"내용"} required/><br/>
+          </div>
+          <input type={"button"} onClick={handleSubmit} value={"글쓰기"}/>
+        </form>
+      </div>
+    </Layout>
   )
 };
 
