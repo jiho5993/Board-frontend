@@ -1,12 +1,12 @@
-const Write_css = () => {
+const Modify_css = () => {
   return (
     <style global jsx>{`
-    .write-wrapper {
+    .mod-wrapper {
       border-radius: 5px;
       background-color: #f2f2f2;
       padding: 20px;
     }
-    .write-wrapper input[type=text], textarea {
+    .mod-wrapper input[type=text], textarea {
       width: 100%;
       padding: 12px 20px;
       margin: 8px 0;
@@ -15,7 +15,7 @@ const Write_css = () => {
       border-radius: 4px;
       box-sizing: border-box;
     }
-    .write-wrapper input[type=button] {
+    .mod-wrapper input[type=button] {
       width: 100%;
       background-color: #4CAF50;
       color: white;
@@ -25,11 +25,11 @@ const Write_css = () => {
       border-radius: 4px;
       cursor: pointer;
     }
-    .write-wrapper input[type=button]:hover {
+    .mod-wrapper input[type=button]:hover {
       background-color: #45a049;
     }
     `}</style>
   )
 };
 
-export default Write_css;
+export default Modify_css;

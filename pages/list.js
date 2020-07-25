@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import Link from "next/link";
-import Header from "./components/header";
 import List_css from "../css/list_css";
 
 const List = () => {
@@ -35,7 +34,7 @@ const List = () => {
         </Link>
       </td>
       <td>{t.writer}</td>
-      <td>0</td>
+      <td>{t.reg_date}</td>
     </tr>
   ))
 
@@ -46,10 +45,10 @@ const List = () => {
       <table className={'table-board'}>
         <thead>
         <tr>
-          <th style={{ width: "10%" }}>#</th>
-          <th style={{ width: "50%" }}>title</th>
-          <th style={{ width: "30%" }}>writer</th>
-          <th style={{ width: "10%" }}>view_cnt</th>
+          <th style={{ width: "5%" }}>#</th>
+          <th style={{ width: "50%" }}>제목</th>
+          <th style={{ width: "30%" }}>작성자</th>
+          <th style={{ width: "15%" }}>작성 일자</th>
         </tr>
         </thead>
         <tbody>

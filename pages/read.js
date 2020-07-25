@@ -1,22 +1,40 @@
 import React from 'react';
 import Axios from 'axios';
-import Header from "./components/header";
 import Link from "next/link";
+import Router from 'next/router';
 import Layout from "./components/layout";
+import Read_css from "../css/read_css";
 
 const Read = (props) => {
 
   const { article } = props;
 
+  const handleDel = () => {
+    Axios.delete(`http://localhost:3001/api/delete/${article.article_no}`)
+      .then(res => {
+        alert("글이 삭제되었습니다.");
+        Router.push('/');
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   return (
     <Layout>
-      <h1>Read</h1>
-      <h2>{article.title}</h2>
-      <h3>{article.writer}</h3>
-      <p>{article.content}</p>
-      <Link as={`/mod/${article.article_no}`} href={`/modify?articleNo=${article.article_no}`}>
-        <button>수정</button>
-      </Link>
+      <Read_css/>
+      <div className={"read-wrapper"}>
+        <div className={"article-info"}>
+          <h1>제목: {article.title}</h1>
+          <h2>작성자: {article.writer}</h2>
+        </div>
+        내용<br/>
+        <p>{article.content}</p>
+        <Link as={`/mod/${article.article_no}`} href={`/modify?articleNo=${article.article_no}`}>
+          <button className={"btn mod-btn"}>수정</button>
+        </Link>
+        <button className={"btn del-btn"} onClick={handleDel}>글 삭제</button>
+      </div>
     </Layout>
   )
 };

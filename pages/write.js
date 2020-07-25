@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Router from 'next/router';
 import Axios from 'axios';
-import Header from "./components/header";
 import Write_css from "../css/write_css";
 import Layout from "./components/layout";
 
@@ -23,7 +22,8 @@ const Write = () => {
       })
       .then(res => {
         console.log(res);
-        Router.push('/list');
+        alert('글이 등록되었습니다.');
+        Router.push('/index');
       })
       .catch(err => {
         console.log(err);
@@ -33,7 +33,8 @@ const Write = () => {
   return (
     <Layout>
       <Write_css/>
-      <div className={"write-article"}>
+      <div className={"write-wrapper"}>
+        <h1>Write</h1>
         <form method={'POST'}>
           <div className={"title"}>
             <label>제목</label>
