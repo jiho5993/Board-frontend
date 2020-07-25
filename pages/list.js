@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import Link from "next/link";
+import Header from "./components/header";
 
 const List = () => {
 
@@ -39,6 +40,7 @@ const List = () => {
 
   return (
     <div>
+      <Header/>
       <h1>list</h1>
       {ArticleList}
     </div>

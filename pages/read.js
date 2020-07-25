@@ -1,5 +1,6 @@
 import React from 'react';
 import Axios from 'axios';
+import Header from "./components/header";
 
 const Read = (props) => {
 
@@ -7,6 +8,7 @@ const Read = (props) => {
 
   return (
     <div>
+      <Header/>
       <h1>Read</h1>
       <h2>{article.title}</h2>
       <h3>{article.writer}</h3>
