@@ -10,7 +10,7 @@ const Read = (props) => {
   const { article } = props;
 
   const handleDel = () => {
-    Axios.delete(`http://localhost:3001/api/delete/${article.article_no}`)
+    Axios.delete(`http://localhost:3001/api_article/delete/${article.article_no}`)
       .then(res => {
         alert("글이 삭제되었습니다.");
         Router.push('/');
@@ -41,7 +41,7 @@ const Read = (props) => {
 
 Read.getInitialProps = async (req) => {
   const { articleNo } = req.query;
-  const res = await Axios(`http://localhost:3001/api/read/${articleNo}`);
+  const res = await Axios(`http://localhost:3001/api_article/read/${articleNo}`);
   const data = res.data[0];
 
   return {
