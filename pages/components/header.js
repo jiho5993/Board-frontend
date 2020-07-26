@@ -9,6 +9,7 @@ const Header = () => {
       <ul>
         <li><Link href={"/"}><a className={"active"}>List</a></Link></li>
         <li><Link href={"/write"}><a>Write</a></Link></li>
+        <li style={{ float: "right" }}><Link href={"/login"}><a>Login</a></Link></li>
       </ul>
     </div>
   )
