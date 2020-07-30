@@ -11,22 +11,21 @@ const Login = () => {
   const getUserid = (e) => { setUserid(e.target.value); }
   const getPwd = (e) => { setPwd(e.target.value); }
 
-  const handleSubmit = () => {
-    Axios.get('http://localhost:3001/api_user/login', {
-        params: {
-          userid: userid,
-          password: pwd
-        }
-      })
-      .then(res => {
-        console.log(res);
-        alert('성공적으로 로그인되었습니다.');
-        Router.push('/index');
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
+  // const handleSubmit = () => {
+  //   Axios.post('http://localhost:3001/api_user/login', {
+  //       uid: userid,
+  //       pwd: pwd
+  //     })
+  //     .then(res => {
+  //       console.log(res.data);
+  //       // localStorage.setItem('user', )
+  //       alert('성공적으로 로그인되었습니다.');
+  //       Router.push('/index');
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //     });
+  // }
 
   return (
     <Layout>
@@ -34,7 +33,7 @@ const Login = () => {
         <form method={'POST'}>
           <div className={"userid"}>
             <label>아이디</label>
-            <input id={"userid"} type={"text"} onChange={getUserid} placeholder={"제목"} required/>
+            <input id={"userid"} type={"text"} onChange={getUserid} placeholder={"아이디"} required/>
           </div>
           <div className={"password"}>
             <label>비밀번호</label>
