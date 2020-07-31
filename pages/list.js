@@ -15,7 +15,7 @@ const List = () => {
    * 이전 렌더 때와 배열 내용이 바뀌는 경우에만 콜백을 다시 실행하도록 제한하는 인자이다.
    */
   useEffect(() => {
-    Axios.get('http://localhost:3001/api/article/list')
+    Axios.get('http://localhost:3030/api/article/list')
       .then(res => {
         getList(res.data);
         console.log(res.data);

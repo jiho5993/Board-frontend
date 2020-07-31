@@ -12,7 +12,7 @@ const Login = () => {
   const getPwd = (e) => { setPwd(e.target.value); }
 
   // const handleSubmit = () => {
-  //   Axios.post('http://localhost:3001/api_user/login', {
+  //   Axios.post('http://localhost:3030/api_user/login', {
   //       uid: userid,
   //       pwd: pwd
   //     })

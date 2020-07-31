@@ -16,7 +16,7 @@ const Register = () => {
   const getNickname = (e) => { setNickname(e.target.value); }
 
   const handleSubmit = () => {
-    Axios.post('http://localhost:3001/api/auth/register', {
+    Axios.post('http://localhost:3030/api/auth/register', {
         "uid": uid,
         "pwd": pwd,
         "uname": uname,

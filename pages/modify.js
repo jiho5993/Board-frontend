@@ -15,7 +15,7 @@ const Modify = (props) => {
   const getContent = (e) => { setContent(e.target.value); }
 
   const handleSubmit = () => {
-    Axios.put(`http://localhost:3001/api/article/modify/${article.article_no}`, {
+    Axios.put(`http://localhost:3030/api/article/modify/${article.article_no}`, {
       title: title,
       content: content
     })
@@ -56,7 +56,7 @@ const Modify = (props) => {
 
 Modify.getInitialProps = async (req) => {
   const { articleNo } = req.query;
-  const res = await Axios.get(`http://localhost:3001/api/article/read/${articleNo}`);
+  const res = await Axios.get(`http://localhost:3030/api/article/read/${articleNo}`);
   const data = res.data[0];
 
   return {

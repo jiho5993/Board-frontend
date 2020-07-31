@@ -10,7 +10,7 @@ const Read = (props) => {
   const { article } = props;
 
   const handleDel = () => {
-    Axios.delete(`http://localhost:3001/api/article/delete/${article.article_no}`)
+    Axios.delete(`http://localhost:3030/api/article/delete/${article.article_no}`)
       .then(res => {
         alert("글이 삭제되었습니다.");
         Router.push('/');
@@ -20,6 +20,13 @@ const Read = (props) => {
       });
   };
 
+  const contentLine = article.content.split('\n').map(sentence => (
+    <div className={"sentence"}>
+      {sentence}
+      <br/>
+    </div>
+  ));
+
   return (
     <Layout>
       <Read_css/>
@@ -28,8 +35,10 @@ const Read = (props) => {
           <h1>제목: {article.title}</h1>
           <h2>작성자: {article.writer}</h2>
         </div>
-        내용<br/>
-        <p>{article.content}</p>
+        <div className={"content"}>
+          <h2>내용</h2>
+          {contentLine}
+        </div>
         <Link as={`/mod/${article.article_no}`} href={`/modify?articleNo=${article.article_no}`}>
           <button className={"btn mod-btn"}>수정</button>
         </Link>
@@ -41,7 +50,7 @@ const Read = (props) => {
 
 Read.getInitialProps = async (req) => {
   const { articleNo } = req.query;
-  const res = await Axios(`http://localhost:3001/api/article/read/${articleNo}`);
+  const res = await Axios(`http://localhost:3030/api/article/read/${articleNo}`);
   const data = res.data[0];
 
   return {

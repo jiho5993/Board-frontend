@@ -15,7 +15,7 @@ const Write = () => {
   const getContent = (e) => { setContent(e.target.value); }
 
   const handleSubmit = () => {
-    Axios.post('http://localhost:3001/api/article/write', {
+    Axios.post('http://localhost:3030/api/article/write', {
         title: title,
         writer: writer,
         content: content
