@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Layout from "./components/layout";
 import Axios from "axios";
 import Router from "next/router";
+import Login_css from "../css/login_css";
 
 const Login = () => {
 
@@ -11,24 +12,29 @@ const Login = () => {
   const getUserid = (e) => { setUserid(e.target.value); }
   const getPwd = (e) => { setPwd(e.target.value); }
 
-  // const handleSubmit = () => {
-  //   Axios.post('http://localhost:3030/api_user/login', {
-  //       uid: userid,
-  //       pwd: pwd
-  //     })
-  //     .then(res => {
-  //       console.log(res.data);
-  //       // localStorage.setItem('user', )
-  //       alert('성공적으로 로그인되었습니다.');
-  //       Router.push('/index');
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //     });
-  // }
+  const handleSubmit = () => {
+    Axios.post('http://localhost:3030/api/auth/login', {
+        userid: userid,
+        password: pwd
+      })
+      .then(res => {
+        const data = res.data;
+        if(data.success) {
+          localStorage.setItem('token', data.token);
+          alert('성공적으로 로그인되었습니다.');
+          Router.push('/');
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        alert('로그인에 실패하였습니다.');
+        Router.push('/login');
+      });
+  }
 
   return (
     <Layout>
+      <Login_css/>
       <div className={"login-wrapper"}>
         <form method={'POST'}>
           <div className={"userid"}>

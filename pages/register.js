@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Layout from "./components/layout";
 import Axios from "axios";
 import Router from "next/router";
+import Register_css from "../css/register_css";
 
 const Register = () => {
 
@@ -17,13 +18,14 @@ const Register = () => {
 
   const handleSubmit = () => {
     Axios.post('http://localhost:3030/api/auth/register', {
-        "uid": uid,
-        "pwd": pwd,
-        "uname": uname,
+        "userid": uid,
+        "password": pwd,
+        "username": uname,
         "nickname": nickname
       })
       .then(res => {
         const data = res.data;
+        console.log(data);
         if(data.success) {
           alert("회원가입이 완료되었습니다.");
           Router.push('/index');
@@ -39,7 +41,8 @@ const Register = () => {
 
   return (
     <Layout>
-      <div className={"signup-wrapper"}>
+      <Register_css/>
+      <div className={"register-wrapper"}>
         <form action={"POST"}>
           <div className={"uid"}>
             <label>아이디</label>
