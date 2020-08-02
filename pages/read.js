@@ -4,10 +4,11 @@ import Link from "next/link";
 import Router from 'next/router';
 import Layout from "./components/layout";
 import Read_css from "../css/read_css";
+import Reply from "./reply";
 
 const Read = (props) => {
 
-  const { article } = props;
+  const { article, reply } = props;
 
   const handleDel = () => {
     Axios.delete(`http://localhost:3030/api/article/delete/${article.article_no}`)
@@ -27,6 +28,14 @@ const Read = (props) => {
     </div>
   ));
 
+  const replyList = reply.map(re => (
+    <div key={re.reply_no}>
+      <h3>{re.nickname} ||| {re.reg_date}</h3>
+      <p>{re.content}</p>
+      <p>--------------------------------------------------------------</p>
+    </div>
+  ));
+
   return (
     <Layout>
       <Read_css/>
@@ -39,6 +48,11 @@ const Read = (props) => {
           <h2>내용</h2>
           {contentLine}
         </div>
+        <p>-----------------------------------------------------------</p>
+        <div className={"reply"}>
+          {replyList}
+          <Reply id={article.article_no}/>
+        </div>
         <Link as={`/mod/${article.article_no}`} href={`/modify?articleNo=${article.article_no}`}>
           <button className={"btn mod-btn"}>수정</button>
         </Link>
@@ -50,11 +64,20 @@ const Read = (props) => {
 
 Read.getInitialProps = async (req) => {
   const { articleNo } = req.query;
-  const res = await Axios(`http://localhost:3030/api/article/read/${articleNo}`);
-  const data = res.data[0];
+
+  const article_res = await Axios.get(`http://localhost:3030/api/article/read/${articleNo}`);
+  const reply_res = await Axios.get(`http://localhost:3030/api/reply/list/${articleNo}`);
+
+  const articles = article_res.data[0];
+  var replys = reply_res.data;
+
+  if(!replys) {
+    replys = [];
+  }
 
   return {
-    article: data
+    article: articles,
+    reply: replys.reply
   };
 }
 
