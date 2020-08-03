@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Axios from 'axios';
 import Link from "next/link";
 import Router from 'next/router';
 import Layout from "./components/layout";
 import Read_css from "../css/read_css";
-import Reply from "./reply";
+import Reply_form from "./reply_form";
+import Reply_list from "./reply_list";
 
 const Read = (props) => {
 
-  const { article, reply } = props;
+  const { article } = props;
+
+  const [replyCount, setReplyCount] = useState(0);
 
   const handleDel = () => {
     Axios.delete(`http://localhost:3030/api/article/delete/${article.article_no}`)
@@ -21,18 +24,12 @@ const Read = (props) => {
       });
   };
 
+  const getReplyCount = (cnt) => { setReplyCount(cnt); }
+
   const contentLine = article.content.split('\n').map(sentence => (
     <div className={"sentence"}>
       {sentence}
       <br/>
-    </div>
-  ));
-
-  const replyList = reply.map(re => (
-    <div key={re.reply_no}>
-      <h3>{re.nickname} ||| {re.reg_date}</h3>
-      <p>{re.content}</p>
-      <p>--------------------------------------------------------------</p>
     </div>
   ));
 
@@ -44,14 +41,14 @@ const Read = (props) => {
           <h1>제목: {article.title}</h1>
           <h2>작성자: {article.writer}</h2>
         </div>
-        <div className={"content"}>
+        <div className={"read-content"}>
           <h2>내용</h2>
           {contentLine}
         </div>
-        <p>-----------------------------------------------------------</p>
         <div className={"reply"}>
-          {replyList}
-          <Reply id={article.article_no}/>
+          <h2>댓글 ({replyCount})</h2>
+          <Reply_list id={article.article_no} count={getReplyCount}/>
+          <Reply_form id={article.article_no}/>
         </div>
         <Link as={`/mod/${article.article_no}`} href={`/modify?articleNo=${article.article_no}`}>
           <button className={"btn mod-btn"}>수정</button>
@@ -64,20 +61,11 @@ const Read = (props) => {
 
 Read.getInitialProps = async (req) => {
   const { articleNo } = req.query;
-
-  const article_res = await Axios.get(`http://localhost:3030/api/article/read/${articleNo}`);
-  const reply_res = await Axios.get(`http://localhost:3030/api/reply/list/${articleNo}`);
-
-  const articles = article_res.data[0];
-  var replys = reply_res.data;
-
-  if(!replys) {
-    replys = [];
-  }
+  const res = await Axios.get(`http://localhost:3030/api/article/read/${articleNo}`);
+  const data = res.data[0];
 
   return {
-    article: articles,
-    reply: replys.reply
+    article: data
   };
 }
 

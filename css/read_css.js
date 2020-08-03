@@ -1,6 +1,15 @@
 const Read_css = () => {
   return (
     <style global jsx>{`
+    .read-wrapper {
+      margin: 0 33% 0 33%;
+    }
+    .read-wrapper .read-content {
+      border-bottom-style: solid;
+      border-bottom-color: red;
+      border-bottom-width: 3px;
+      margin: 0 0 20px 0;
+    }
     .btn {
       border: none;
       color: white;
