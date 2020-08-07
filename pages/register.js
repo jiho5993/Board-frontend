@@ -43,7 +43,7 @@ const Register = () => {
     <Layout>
       <Register_css/>
       <div className={"register-wrapper"}>
-        <form action={"POST"}>
+        <form method={"POST"}>
           <div className={"uid"}>
             <label>아이디</label>
             <input id={"uid"} type={"text"} onChange={getUid} placeholder={"아이디"} required/>

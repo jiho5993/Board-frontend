@@ -27,7 +27,7 @@ const Reply_form = (props) => {
   return (
     <div className={"reply-form"}>
       <Reply_form_css/>
-      <form action={"POST"}>
+      <form method={"POST"}>
         <div className={"reply-input-box"}>
           <label><b>댓글</b></label>
           <textarea id={"content"} onChange={getContent} placeholder={"댓글"} required/>

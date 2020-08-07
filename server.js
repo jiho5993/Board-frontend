@@ -26,6 +26,18 @@ app.prepare()
     const actualPage = '/modify';
     const queryParams = { articleNo: req.params.no };
     app.render(req, res, actualPage, queryParams);
+  });
+
+  /**
+   * server render: search article
+   */
+  server.get('/search', (req, res) => {
+    const { type, keyword } = req.query;
+    const search = {
+      type: type,
+      keyword: keyword
+    };
+    app.render(req, res, '/search', search);
   })
 
   server.get('*', (req, res) => {
