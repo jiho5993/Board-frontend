@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Layout from "./components/layout";
 import Axios from "axios";
 import Router from "next/router";
@@ -9,19 +9,6 @@ const Register = () => {
     const [pwd, setPwd] = useState("");
     const [uname, setUname] = useState("");
     const [nickname, setNickname] = useState("");
-
-    const getUid = (e) => {
-        setUid(e.target.value);
-    };
-    const getPwd = (e) => {
-        setPwd(e.target.value);
-    };
-    const getUname = (e) => {
-        setUname(e.target.value);
-    };
-    const getNickname = (e) => {
-        setNickname(e.target.value);
-    };
 
     const handleSubmit = () => {
         Axios.post("http://localhost:3030/api/auth/register", {
@@ -56,7 +43,7 @@ const Register = () => {
                         <input
                             id={"uid"}
                             type={"text"}
-                            onChange={getUid}
+                            onChange={e => setUid(e.target.value)}
                             placeholder={"아이디"}
                             required
                         />
@@ -66,7 +53,7 @@ const Register = () => {
                         <input
                             id={"pwd"}
                             type={"password"}
-                            onChange={getPwd}
+                            onChange={e => setPwd(e.target.value)}
                             placeholder={"비밀번호"}
                             required
                         />
@@ -76,7 +63,7 @@ const Register = () => {
                         <input
                             id={"uname"}
                             type={"text"}
-                            onChange={getUname}
+                            onChange={e => setUname(e.target.value)}
                             placeholder={"이름"}
                             required
                         />
@@ -86,7 +73,7 @@ const Register = () => {
                         <input
                             id={"nickname"}
                             type={"text"}
-                            onChange={getNickname}
+                            onChange={e => setNickname(e.target.value)}
                             placeholder={"닉네임"}
                             required
                         />

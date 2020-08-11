@@ -28,34 +28,30 @@ const Header = () => {
                 .catch((err) => {
                     console.log(err);
                     localStorage.removeItem("token");
+                    localStorage.removeItem("userId");
                 });
         }
     }, []);
 
     const handleLogout = () => {
         localStorage.removeItem("token");
+        localStorage.removeItem("userId");
         alert("로그아웃 되었습니다.");
         setIsLogined(0);
         setUserInfo({});
         Router.push("/");
     };
 
-    const getKeyword = (e) => {
-        setKeyword(e.target.value);
-    };
-    const getType = (e) => {
-        setType(e.target.value);
-    };
-
-    const handleSearchPress = (e) => {
-        console.log(e.key);
-        if (e.key === "Enter") {
+    const handleWriteAuthority = () => {
+        if(!isLogined) {
+            alert("로그인 후에 이용가능합니다.");
+            Router.push("/login");
+        } else {
             Router.push({
-                pathname: "/search",
+                pathname: "/write",
                 query: {
-                    type: type,
-                    keyword: keyword,
-                },
+                    userid: userInfo.userid
+                }
             });
         }
     };
@@ -82,7 +78,10 @@ const Header = () => {
                     <a>{userInfo.nickname}</a>
                 </Link>
             </li>
-            <li style={{ float: "right" }} onClick={handleLogout}>
+            <li
+              style={{ float: "right", cursor:"pointer" }}
+              onClick={handleLogout}
+            >
                 <a>Logout</a>
             </li>
         </div>
@@ -98,13 +97,16 @@ const Header = () => {
                     </Link>
                 </li>
                 <li>
-                    <Link href={"/write"}>
-                        <a>Write</a>
-                    </Link>
+                    <a
+                      onClick={handleWriteAuthority}
+                      style={{ cursor:"pointer" }}
+                    >
+                        Write
+                    </a>
                 </li>
                 <li className={"search-container"}>
                     <form method={"GET"}>
-                        <select className={"select-box"} onChange={getType}>
+                        <select className={"select-box"} onChange={e => setType(e.target.value)}>
                             <option value={"title"}>title</option>
                             <option value={"writer"}>writer</option>
                             <option value={"content"}>content</option>
@@ -113,8 +115,7 @@ const Header = () => {
                         <input
                             id={"keyword"}
                             type={"text"}
-                            onKeyPress={handleSearchPress}
-                            onChange={getKeyword}
+                            onChange={e => setKeyword(e.target.value)}
                             placeholder={"Search.."}
                         />
                         <Link href={`/search?type=${type}&keyword=${keyword}`}>

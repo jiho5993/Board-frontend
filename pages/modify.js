@@ -1,21 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Axios from "axios";
 import Layout from "./components/layout";
 import Router from "next/router";
 import Modify_css from "../css/modify_css";
 
-const Modify = (props) => {
-    const { article } = props;
-
+const Modify = ({ article }) => {
     const [title, setTitle] = useState(article.title);
     const [content, setContent] = useState(article.content);
-
-    const getTitle = (e) => {
-        setTitle(e.target.value);
-    };
-    const getContent = (e) => {
-        setContent(e.target.value);
-    };
 
     const handleSubmit = () => {
         Axios.put(
@@ -46,7 +37,7 @@ const Modify = (props) => {
                         <input
                             id={"title"}
                             type={"text"}
-                            onChange={getTitle}
+                            onChange={e => setTitle(e.target.value)}
                             placeholder={"제목"}
                             value={title}
                             required
@@ -67,7 +58,7 @@ const Modify = (props) => {
                         <textarea
                             style={{ height: "300px" }}
                             id={"content"}
-                            onChange={getContent}
+                            onChange={e => setContent(e.target.value)}
                             placeholder={"내용"}
                             value={content}
                             required

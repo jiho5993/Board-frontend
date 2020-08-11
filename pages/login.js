@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Layout from "./components/layout";
 import Axios from "axios";
 import Router from "next/router";
@@ -7,13 +7,6 @@ import Login_css from "../css/login_css";
 const Login = () => {
     const [userid, setUserid] = useState("");
     const [pwd, setPwd] = useState("");
-
-    const getUserid = (e) => {
-        setUserid(e.target.value);
-    };
-    const getPwd = (e) => {
-        setPwd(e.target.value);
-    };
 
     const handleSubmit = () => {
         Axios.post("http://localhost:3030/api/auth/login", {
@@ -24,6 +17,7 @@ const Login = () => {
                 const data = res.data;
                 if (data.success) {
                     localStorage.setItem("token", data.token);
+                    localStorage.setItem("userId", userid);
                     alert("성공적으로 로그인되었습니다.");
                     Router.push("/");
                 }
@@ -45,7 +39,7 @@ const Login = () => {
                         <input
                             id={"userid"}
                             type={"text"}
-                            onChange={getUserid}
+                            onChange={e => setUserid(e.target.value)}
                             placeholder={"아이디"}
                             required
                         />
@@ -55,7 +49,7 @@ const Login = () => {
                         <input
                             id={"password"}
                             type={"password"}
-                            onChange={getPwd}
+                            onChange={e => setPwd(e.target.value)}
                             placeholder={"비밀번호"}
                             required
                         />

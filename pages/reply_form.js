@@ -1,25 +1,25 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Router from "next/router";
 import Axios from "axios";
 import Reply_form_css from "../css/reply_form_css";
 
-const Reply_form = (props) => {
+const Reply_form = ({ id }) => {
     const [content, setContent] = useState("");
 
-    const getContent = (e) => {
-        setContent(e.target.value);
-    };
-
     const handleSubmit = () => {
-        if (content !== "") {
+        const userId = localStorage.getItem("userId");
+        if(userId === null) {
+            alert("로그인 후에 이용가능합니다.");
+        }
+        else if (content !== "") {
             Axios.post(`http://localhost:3030/api/reply/write`, {
-                id: props.id,
-                nickname: "test",
+                id: id,
+                nickname: userId,
                 content: content,
             })
                 .then((res) => {
                     console.log(res.data);
-                    Router.push(`/article/${props.id}`);
+                    Router.push(`/article/${id}`);
                 })
                 .catch((err) => {
                     console.log(err);
@@ -37,7 +37,7 @@ const Reply_form = (props) => {
                     </label>
                     <textarea
                         id={"content"}
-                        onChange={getContent}
+                        onChange={e => setContent(e.target.value)}
                         placeholder={"댓글"}
                         required
                     />

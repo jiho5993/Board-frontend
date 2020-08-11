@@ -1,23 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Router from "next/router";
 import Axios from "axios";
 import Write_css from "../css/write_css";
 import Layout from "./components/layout";
 
-const Write = () => {
+const Write = ({ userid }) => {
     const [title, setTitle] = useState("");
-    const [writer, setWriter] = useState("");
+    const writer = userid;
     const [content, setContent] = useState("");
-
-    const getTitle = (e) => {
-        setTitle(e.target.value);
-    };
-    const getWriter = (e) => {
-        setWriter(e.target.value);
-    };
-    const getContent = (e) => {
-        setContent(e.target.value);
-    };
 
     const handleSubmit = () => {
         Axios.post("http://localhost:3030/api/article/write", {
@@ -46,7 +36,7 @@ const Write = () => {
                         <input
                             id={"title"}
                             type={"text"}
-                            onChange={getTitle}
+                            onChange={e => setTitle(e.target.value)}
                             placeholder={"제목"}
                             required
                         />
@@ -57,9 +47,9 @@ const Write = () => {
                         <input
                             id={"writer"}
                             type={"text"}
-                            onChange={getWriter}
+                            value={userid}
                             placeholder={"작성자"}
-                            required
+                            readOnly
                         />
                         <br />
                     </div>
@@ -68,7 +58,7 @@ const Write = () => {
                         <textarea
                             style={{ height: "300px" }}
                             id={"content"}
-                            onChange={getContent}
+                            onChange={e => setContent(e.target.value)}
                             placeholder={"내용"}
                             required
                         />
@@ -84,5 +74,11 @@ const Write = () => {
         </Layout>
     );
 };
+
+Write.getInitialProps = (res) => {
+    return {
+        userid: res.query.userid
+    }
+}
 
 export default Write;

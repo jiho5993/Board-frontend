@@ -1,29 +1,45 @@
 import React, { useState } from "react";
 import Axios from "axios";
-import Link from "next/link";
 import Router from "next/router";
 import Layout from "./components/layout";
 import Read_css from "../css/read_css";
 import Reply_form from "./reply_form";
 import Reply_list from "./reply_list";
 
-const Read = (props) => {
-    const { article } = props;
-
+const Read = ({ article }) => {
     const [replyCount, setReplyCount] = useState(0);
 
     const handleDel = () => {
-        Axios.delete(
-            `http://localhost:3030/api/article/delete/${article.article_no}`
-        )
-            .then((res) => {
-                alert("글이 삭제되었습니다.");
-                Router.push("/");
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        const userId = localStorage.getItem("userId");
+        if(userId === article.writer) {
+            Axios.delete(
+              `http://localhost:3030/api/article/delete/${article.article_no}`
+            )
+                .then((res) => {
+                    alert("글이 삭제되었습니다.");
+                    Router.push("/");
+                })
+                .catch((err) => {
+                    console.error(err.stack);
+                });
+        } else {
+            alert("권한이 없거나 로그인 후 이용가능합니다.");
+        }
     };
+
+    const handleModAuthorityCheck = () => {
+        const userId = localStorage.getItem("userId");
+        if(userId === article.writer){
+            Router.push({
+                pathname: `/modify`,
+                query: {
+                    articleNo: `${article.article_no}`
+                }
+            }, `/mod/${article.article_no}`);
+        } else {
+            alert("권한이 없거나 로그인 후 이용가능합니다.");
+        }
+    }
 
     const getReplyCount = (cnt) => {
         setReplyCount(cnt);
@@ -53,12 +69,7 @@ const Read = (props) => {
                     <Reply_list id={article.article_no} count={getReplyCount} />
                     <Reply_form id={article.article_no} />
                 </div>
-                <Link
-                    as={`/mod/${article.article_no}`}
-                    href={`/modify?articleNo=${article.article_no}`}
-                >
-                    <button className={"btn mod-btn"}>수정</button>
-                </Link>
+                <button className={"btn mod-btn"} onClick={handleModAuthorityCheck}>수정</button>
                 <button className={"btn del-btn"} onClick={handleDel}>
                     글 삭제
                 </button>
