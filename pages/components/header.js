@@ -10,6 +10,13 @@ const Header = () => {
     const [keyword, setKeyword] = useState("");
     const [type, setType] = useState("title");
 
+    /**
+     * useEffect 두번째 인자 값이 없으면 컴포넌트가 렌더링 될 때마다 실행된다.
+     * 따라서 []을 넣어야 무한루프에 걸리지 않는다.
+     *
+     * 두번째 인자의 역할은 dependency list배열인데,
+     * 이전 렌더 때와 배열 내용이 바뀌는 경우에만 콜백을 다시 실행하도록 제한하는 인자이다.
+     */
     useEffect(() => {
         const token = localStorage.getItem("token");
         if (token !== null) {

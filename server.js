@@ -8,40 +8,7 @@ const handle = app.getRequestHandler();
 app.prepare()
     .then(() => {
         var server = express();
-
-        /**
-         * server render: read article
-         */
-        server.get("/article/:no", (req, res) => {
-            const actualPage = "/read";
-            const queryParams = { articleNo: req.params.no };
-            app.render(req, res, actualPage, queryParams);
-        });
-
-        /**
-         * server render: modify article
-         */
-        server.get("/mod/:no", (req, res) => {
-            const actualPage = "/modify";
-            const queryParams = { articleNo: req.params.no };
-            app.render(req, res, actualPage, queryParams);
-        });
-
-        /**
-         * server render: search article
-         */
-        server.get("/search", (req, res) => {
-            const { type, keyword } = req.query;
-            const search = {
-                type: type,
-                keyword: keyword,
-            };
-            app.render(req, res, "/search", search);
-        });
-
-        server.get("*", (req, res) => {
-            return handle(req, res);
-        });
+        var router = require('./router/index')(server, app, handle);
 
         server.listen(3000, (err) => {
             if (err) {

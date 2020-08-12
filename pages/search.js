@@ -19,6 +19,7 @@ const Search = (props) => {
                 </Link>
             </td>
             <td>{t.writer}</td>
+            <td>{t.view_cnt}</td>
             <td>{t.reg_date}</td>
         </tr>
     ));
@@ -33,7 +34,8 @@ const Search = (props) => {
                         <tr>
                             <th style={{ width: "5%" }}>#</th>
                             <th style={{ width: "50%" }}>제목</th>
-                            <th style={{ width: "30%" }}>작성자</th>
+                            <th style={{ width: "20%" }}>작성자</th>
+                            <th style={{ width: "10%" }}>조회수</th>
                             <th style={{ width: "15%" }}>작성 일자</th>
                         </tr>
                     </thead>

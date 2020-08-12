@@ -18,7 +18,7 @@ const Write = ({ userid }) => {
             .then((res) => {
                 console.log(res);
                 alert("글이 등록되었습니다.");
-                Router.push("/index");
+                Router.push("/");
             })
             .catch((err) => {
                 console.log(err);

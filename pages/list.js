@@ -1,30 +1,10 @@
-import React, { useState, useEffect } from "react";
-import Axios from "axios";
+import React  from "react";
 import Link from "next/link";
 import List_css from "../css/list_css";
 
-const List = () => {
-    const [list, getList] = useState([]);
+const List = ({ pageNum, article }) => {
 
-    /**
-     * useEffect 두번째 인자 값이 없으면 컴포넌트가 렌더링 될 때마다 실행된다.
-     * 따라서 []을 넣어야 무한루프에 걸리지 않는다.
-     *
-     * 두번째 인자의 역할은 dependency list배열인데,
-     * 이전 렌더 때와 배열 내용이 바뀌는 경우에만 콜백을 다시 실행하도록 제한하는 인자이다.
-     */
-    useEffect(() => {
-        Axios.get("http://localhost:3030/api/article/list")
-            .then((res) => {
-                getList(res.data);
-                console.log(res.data);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    }, []);
-
-    const ArticleList = list.map((t) => (
+    const ArticleList = article.map((t) => (
         <tr key={t.article_no}>
             <td>{t.article_no}</td>
             <td>
@@ -39,6 +19,20 @@ const List = () => {
             <td>{t.view_cnt}</td>
             <td>{t.reg_date}</td>
         </tr>
+    ));
+
+    const pagination = pageNum.map((num) => (
+        <Link
+            href={{
+                pathname: '/index',
+                query: {
+                    curPage: num
+                }
+            }}
+            as={`/${num}`}
+        >
+            <a>{num}</a>
+        </Link>
     ));
 
     return (
@@ -57,6 +51,11 @@ const List = () => {
                 </thead>
                 <tbody>{ArticleList}</tbody>
             </table>
+            <div className={"pagination"}>
+                <a href="#">&laquo;</a>
+                {pagination}
+                <a href="#">&raquo;</a>
+            </div>
         </div>
     );
 };
