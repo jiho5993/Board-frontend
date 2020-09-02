@@ -2,7 +2,7 @@ import React  from "react";
 import Link from "next/link";
 import List_css from "../css/list_css";
 
-const List = ({ pageNum, article }) => {
+const List = ({ pageNum, article, curPage }) => {
 
     const ArticleList = article.map((t) => (
         <tr key={t.article_no}>
@@ -31,7 +31,7 @@ const List = ({ pageNum, article }) => {
             }}
             as={`/${num}`}
         >
-            <a>{num}</a>
+            <a className={parseInt(curPage) === num ? 'active' : 'nothing'}>{num}</a>
         </Link>
     ));
 

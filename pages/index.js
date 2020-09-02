@@ -3,10 +3,10 @@ import List from "./list";
 import Layout from "./components/layout";
 import Axios from "axios";
 
-const Index = ({ pageNum, article }) => {
+const Index = ({ pageNum, article, curPage }) => {
     return (
         <Layout>
-            <List pageNum={pageNum} article={article} />
+            <List pageNum={pageNum} article={article} curPage={curPage} />
         </Layout>
     );
 };
@@ -16,7 +16,7 @@ Index.getInitialProps = async (req) => {
     const count_res = await Axios.get('http://localhost:3030/api/article/count');
     const list_res = await Axios.get("http://localhost:3030/api/article/list", {
         params: {
-            page: curPage === undefined ? 1 : curPage
+            page: /^\d+$/.test(curPage) ? curPage : 1
         }
     });
     const { success, data } = count_res.data;
@@ -30,7 +30,8 @@ Index.getInitialProps = async (req) => {
 
     return {
         pageNum: success ? pageNum : [],
-        article: articleList
+        article: articleList,
+        curPage: curPage === undefined ? 1 : curPage
     };
 }
 
