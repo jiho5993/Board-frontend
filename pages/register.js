@@ -22,7 +22,7 @@ const Register = () => {
                 console.log(data);
                 if (data.success) {
                     alert("회원가입이 완료되었습니다.");
-                    Router.push("/index");
+                    Router.push("/login");
                 } else {
                     alert("중복된 아이디입니다.");
                     console.log(data.error);
