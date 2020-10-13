@@ -81,7 +81,7 @@ const Header = () => {
   const userPage = (
     <div className={"out userinfo"}>
       <li style={{ float: "right" }}>
-        <Link href={"/user"}>
+        <Link as={`/${userInfo.userid}`} href={"/user"}>
           <a>{userInfo.nickname}</a>
         </Link>
       </li>

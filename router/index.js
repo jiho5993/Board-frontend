@@ -38,6 +38,17 @@ module.exports = (server, app, handle) => {
     app.render(req, res, actualPage, queryParams);
   });
 
+  /**
+   * server render: user's article
+   */
+  server.get("/:user/article", (req, res) => {
+    const queryParams = {
+      type: "writer",
+      keyword: req.params.user
+    };
+    app.render(req, res, "/search", queryParams);
+  });
+
   server.get("*", (req, res) => {
     return handle(req, res);
   });
