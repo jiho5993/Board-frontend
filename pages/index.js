@@ -19,10 +19,10 @@ Index.getInitialProps = async (req) => {
       page: /^\d+$/.test(curPage) ? curPage : 1,
     },
   });
-  const { success, data } = count_res.data;
+  const { success, count } = count_res.data;
   const articleList = list_res.data;
 
-  var page = Math.ceil(data.count / 15);
+  var page = Math.ceil(count / 15);
   const pageNum = [];
   for (var i = 1; i <= page; i++) {
     pageNum.push(i);

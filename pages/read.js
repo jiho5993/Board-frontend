@@ -85,10 +85,10 @@ const Read = ({ article }) => {
 
 Read.getInitialProps = async (req) => {
   const { articleNo } = req.query;
-  const res = await Axios.get(
+  const { data } = await Axios.get(
     `http://localhost:3030/api/article/read/${articleNo}`
   );
-  const data = res.data[0];
+  // const data = res.data;
 
   return {
     article: data,
