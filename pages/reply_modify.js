@@ -15,7 +15,7 @@ const Reply_modify = ({ reply_no, article_no, content }) => {
 Reply_modify.getInitialProps = async (req) => {
   const { reply_no, article_no } = req.query;
   const res = await Axios.get(
-    `http://localhost:3030/api/reply/get_reply/${reply_no}`
+    `http://localhost:3030/api/reply/get-reply/${reply_no}`
   );
   const data = res.data;
 
